@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Muhammad Jibril Kashani Zhillan | Electrical Engineer</title>
+  <meta name="description" content="Electrical engineer working across embedded systems, test automation and Industrial IoT.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a class="brand" href="#top">Jibril Zhillan</a>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#organization">Organization</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 1. Hero -->
+<header class="hero" id="top">
+  <div class="container">
+    <div>
+      <h1>Muhammad Jibril Kashani Zhillan</h1>
+      <!-- Keep in sync with CV and LinkedIn -->
+      <p class="headline">Electrical Engineer</p>
+      <p class="headline-sub">Embedded Systems · Industrial IoT · Test Automation</p>
+      <p class="pitch">
+        I build complete systems, from circuit and firmware to the data on a dashboard,
+        and I make sure they keep running on a real production floor.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="assets/CV_Muhammad_Jibril_Kashani_Zhillan.pdf" download>Download CV</a>
+        <a class="btn btn-outline" href="mailto:kashanizhillan@gmail.com">Email me</a>
+        <a class="btn btn-outline" href="https://linkedin.com/in/jibrilzhillan" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <p class="meta">BSc Electrical Engineering, Institut Teknologi Bandung (ITB) · Based in Indonesia</p>
+    </div>
+    <img class="photo" src="assets/photo.jpg" alt="Portrait of Muhammad Jibril Kashani Zhillan">
+  </div>
+</header>
+
+<!-- About -->
+<section class="alt" id="about">
+  <div class="container">
+    <h2>About</h2>
+    <p class="section-lead" style="margin-bottom:0">
+      Electrical engineer working across embedded systems, test automation and Industrial IoT.
+      I enjoy building complete systems, from circuit and firmware to the data on a dashboard,
+      and seeing them run on a real production floor. Next, I want to grow into a specialist engineer
+      and a dependable teammate on hardware that ships at scale.
+    </p>
+  </div>
+</section>
+
+<!-- 2. Featured projects -->
+<section id="projects">
+  <div class="container">
+    <h2>Featured projects</h2>
+    <p class="section-lead">Selected work, results first.</p>
+    <div class="cards">
+
+      <article class="card">
+        <div class="kicker">Freelance · Industrial IoT · 2024 – now</div>
+        <h3>Loom Machine Monitoring System</h3>
+        <p class="result">ESP32 node that reports every loom stop and its cause over MQTT, replacing handwritten operator logs.</p>
+        <ul>
+          <li>Detects every stop and its cause automatically, with clip-on sensors</li>
+          <li>Lost no events or counts in a 10-minute network outage (bench test)</li>
+          <li>Hardware, firmware and dashboard design; prototype on 1 of 18 looms</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">ESP32</span><span class="tag">ESP-IDF</span><span class="tag">C</span>
+          <span class="tag">MQTT</span><span class="tag">KiCad</span>
+        </div>
+        <a class="more" href="loom-monitoring.html">Read case study →</a>
+      </article>
+
+      <article class="card">
+        <div class="kicker">Client project · Completed · 2026</div>
+        <h3>Audio-Reactive Lighting Controller</h3>
+        <p class="result">.NET CLI that turns a song and a JSON cue file into a synchronized light show for a commercial photo box.</p>
+        <ul>
+          <li>Turned the client's needs into a technical spec</li>
+          <li>Drives a real-time audio effects engine and an ESP32 controller over Wi-Fi</li>
+          <li>One-command startup with health checks; tutorials for operators</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">C# / .NET</span><span class="tag">REST API</span><span class="tag">Wi-Fi</span>
+        </div>
+        <a class="more" href="lighting-controller.html">Read case study →</a>
+      </article>
+
+      <article class="card">
+        <div class="kicker">ITB final project · IoT · 2023 – 2024</div>
+        <h3>LoRaWAN Smart Water Meter</h3>
+        <p class="result">Water meter that reports consumption automatically to a cloud dashboard, tested up to 5 km in the field.</p>
+        <ul>
+          <li>Owned the communication and cloud subsystem in a team of 3</li>
+          <li>Low-power LoRaWAN link, verified against Indonesian radio regulations</li>
+          <li>Serverless backend and web dashboard with missing-meter alerts</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">ESP32</span><span class="tag">LoRaWAN</span><span class="tag">Google Cloud</span><span class="tag">React</span>
+        </div>
+        <a class="more" href="smart-water-meter.html">Read case study →</a>
+      </article>
+
+      <article class="card">
+        <div class="kicker">KCCI Firmware Training · 2026</div>
+        <h3>Reflow Line Model with Vision Inspection</h3>
+        <p class="result">Conveyor line that heats, camera-inspects and sorts PCBs, run by real-time firmware.</p>
+        <ul>
+          <li>Built the conveyor system in a team of 5</li>
+          <li>Integrated the conveyor with the sorting system on FreeRTOS</li>
+          <li>Every stage demonstrated on the prototype</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">STM32</span><span class="tag">FreeRTOS</span><span class="tag">C</span>
+        </div>
+        <a class="more" href="reflow-oven.html">Read case study →</a>
+      </article>
+
+      <article class="card">
+        <div class="kicker">KCCI Hardware Training · 2026</div>
+        <h3>High-Speed PCB Design</h3>
+        <p class="result">4-layer ESP32-P4 display bridge with 12 length-matched high-speed pairs, plus a microcontroller board.</p>
+        <ul>
+          <li>Training in high-speed layout best practice</li>
+          <li>Impedance-controlled 100 Ω differential pairs</li>
+          <li>Both boards DRC clean</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">KiCad</span><span class="tag">High-speed layout</span><span class="tag">Signal integrity</span>
+        </div>
+        <a class="more" href="pcb-designs.html">Read case study →</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- 3. Experience -->
+<section class="alt" id="experience">
+  <div class="container">
+    <h2>Experience</h2>
+    <div class="timeline">
+
+      <div class="job">
+        <div class="when">Feb 2025 – Jun 2026 · Batam, Indonesia</div>
+        <h3>Automated Test Engineer</h3>
+        <div class="org">Pegatron Corporation (PT Pegaunihan Technology Indonesia)</div>
+        <ul>
+          <li>Optimized and troubleshot automated test programs for board-level and Wi-Fi testing, keeping production running 24/7 for NPI and mass-production projects</li>
+          <li>Implemented test automation with IQxel, DMM, oscilloscopes and power supplies to validate product specifications</li>
+          <li>Installed and troubleshot production and environmental test setups with factory teams</li>
+          <li>Wrote troubleshooting guidelines for test programs to speed up fault detection and cut downtime</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="when">Aug 2023 – Dec 2023 · Bandung, Indonesia</div>
+        <h3>Laboratory Assistant</h3>
+        <div class="org">Basic Electrical Engineering Lab, ITB</div>
+        <ul>
+          <li>Guided students through Control Systems (DC motor control) and Communication Systems (AM, FM, ASK, FSK, BPSK, QPSK, PCM) lab modules</li>
+          <li>Graded lab reports and gave feedback to improve students' understanding</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="when">Jun 2023 – Jul 2023 · Bandung, Indonesia</div>
+        <h3>Embedded DSP System Intern</h3>
+        <div class="org">Kuassa Teknika</div>
+        <ul>
+          <li>Implemented digital signal processing algorithms in C++ on an embedded audio platform</li>
+          <li>Designed and assembled prototype PCBs for guitar effect pedals</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Education & training -->
+<section id="education">
+  <div class="container">
+    <h2>Education &amp; Training</h2>
+    <div class="timeline">
+      <div class="job">
+        <div class="when">Jul 2019 – Jul 2024 · Bandung, Indonesia</div>
+        <h3>Bachelor of Science in Electrical Engineering</h3>
+        <div class="org">Institut Teknologi Bandung (ITB)</div>
+        <ul>
+          <li>Final project: LoRaWAN communication and web interface for an ultrasonic <a href="smart-water-meter.html">smart water meter</a></li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="when">Jul 2026 – present</div>
+        <h3>KCCI Training</h3>
+        <div class="org">Korea Chamber of Commerce and Industry (KCCI)</div>
+        <ul>
+          <li><strong>Firmware Training:</strong> real-time multitasking on STM32 with FreeRTOS; team final project on a <a href="reflow-oven.html">reflow line model</a></li>
+          <li><strong>Hardware Training:</strong> signal integrity and high-speed PCB design; <a href="pcb-designs.html">4-layer high-speed board</a></li>
+          <li><strong>IC Design Training</strong> (ongoing)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Skills -->
+<section class="alt" id="skills">
+  <div class="container">
+    <h2>Skills</h2>
+    <p class="section-lead">Grouped by area, with where I used them.</p>
+    <div class="skills">
+      <div class="skill-group">
+        <h3>Embedded &amp; firmware</h3>
+        <div class="tags">
+          <span class="tag">C / C++</span><span class="tag">ESP32</span><span class="tag">ESP-IDF</span>
+          <span class="tag">STM32</span><span class="tag">FreeRTOS</span><span class="tag">Arduino</span><span class="tag">UART · SPI · I²C</span>
+        </div>
+        <div class="proof">Used in: <a href="loom-monitoring.html">Loom Monitoring</a>, <a href="reflow-oven.html">Reflow Line</a>, Kuassa</div>
+      </div>
+      <div class="skill-group">
+        <h3>Connectivity &amp; IIoT</h3>
+        <div class="tags">
+          <span class="tag">MQTT</span><span class="tag">Wi-Fi</span><span class="tag">TCP/IP</span><span class="tag">LoRaWAN</span>
+        </div>
+        <div class="proof">Used in: <a href="loom-monitoring.html">Loom Monitoring</a>, <a href="lighting-controller.html">Lighting Controller</a>, <a href="smart-water-meter.html">Smart Water Meter</a></div>
+      </div>
+      <div class="skill-group">
+        <h3>Test &amp; instrumentation</h3>
+        <div class="tags">
+          <span class="tag">IQxel</span><span class="tag">Oscilloscope</span><span class="tag">DMM</span>
+          <span class="tag">Power supplies</span><span class="tag">Cable &amp; antenna analyzer</span>
+        </div>
+        <div class="proof">Used in: Pegatron</div>
+      </div>
+      <div class="skill-group">
+        <h3>Hardware design</h3>
+        <div class="tags">
+          <span class="tag">Schematic capture</span><span class="tag">PCB layout</span><span class="tag">KiCad</span><span class="tag">High-speed / impedance control</span><span class="tag">LTspice</span>
+        </div>
+        <div class="proof">Used in: <a href="pcb-designs.html">High-Speed PCB</a>, <a href="loom-monitoring.html">Loom Monitoring</a>, Kuassa</div>
+      </div>
+      <div class="skill-group">
+        <h3>Software</h3>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">C# / .NET</span><span class="tag">SQL</span><span class="tag">JavaScript / React</span><span class="tag">Git</span>
+        </div>
+        <div class="proof">Used in: Pegatron, <a href="lighting-controller.html">Lighting Controller</a>, <a href="smart-water-meter.html">Smart Water Meter</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Organizational experience -->
+<section id="organization">
+  <div class="container">
+    <h2>Organizational Experience</h2>
+    <div class="timeline">
+      <div class="job">
+        <div class="when">Aug 2021 – Aug 2022 · Bandung, Indonesia</div>
+        <h3>Head of Organization</h3>
+        <div class="org">APRES! ITB</div>
+        <ul>
+          <li>Set the annual goals and objectives, and developed the strategic plan for the one-year term</li>
+          <li>Led and supervised a team of 100 members across 9 divisions</li>
+          <li>Ran performance evaluations every 6 months to keep the team performing well</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="when">Oct 2020 – Feb 2021 · Bandung, Indonesia</div>
+        <h3>Head of Curriculum &amp; Methods, Member Orientation Committee</h3>
+        <div class="org">APRES! ITB</div>
+        <ul>
+          <li>Led a team that designed the curriculum and methods for the recruitment and induction event, introducing new members to the organization and developing their skills</li>
+          <li>Developed and applied the strategy to screen and select candidates who fit the organization's vision and goals</li>
+          <li>Coordinated activities that helped candidates understand the organization and build commitment to it</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Contact -->
+<section class="alt" id="contact">
+  <div class="container">
+    <h2>Contact</h2>
+    <p class="section-lead">Open to roles in embedded systems, test engineering, Industrial IoT and the wider electronics field.</p>
+    <ul class="contact-list">
+      <li><span>Email</span><a href="mailto:kashanizhillan@gmail.com">kashanizhillan@gmail.com</a></li>
+      <li><span>LinkedIn</span><a href="https://linkedin.com/in/jibrilzhillan" target="_blank" rel="noopener">linkedin.com/in/jibrilzhillan</a></li>
+    </ul>
+    <a class="btn btn-primary" href="assets/CV_Muhammad_Jibril_Kashani_Zhillan.pdf" download>Download CV</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">© 2026 Muhammad Jibril Kashani Zhillan</div>
+</footer>
+
+</body>
+</html>

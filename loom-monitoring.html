@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loom Machine Monitoring | Jibril Zhillan</title>
+  <meta name="description" content="Case study: an ESP32-based IIoT node that reports loom stops and their causes over MQTT.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="case">
+
+<nav class="nav">
+  <div class="container">
+    <a class="brand" href="index.html">Jibril Zhillan</a>
+    <ul>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="case-hero">
+  <div class="container">
+    <a class="back" href="index.html#projects">← All projects</a>
+    <div class="fact-kicker">Case study · Freelance project for a textile manufacturer</div>
+    <h1>Loom Machine Monitoring System</h1>
+    <p class="summary">
+      An ESP32 node that clips onto a weaving loom, detects every stop and its cause, and reports it over MQTT
+      to a production dashboard, replacing handwritten operator logs.
+    </p>
+    <div class="facts">
+      <div class="fact"><div class="k">My role</div><div class="v">Hardware &amp; firmware engineer, dashboard designer</div></div>
+      <div class="fact"><div class="k">Team</div><div class="v">2 people</div></div>
+      <div class="fact"><div class="k">Period</div><div class="v">Jul–Dec 2024, resumed Oct 2026</div></div>
+      <div class="fact"><div class="k">Status</div><div class="v">Working prototype, PCB in progress</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="container prose">
+    <h2>The problem</h2>
+    <p>
+      Management wanted real insight into how effectively the weaving floor runs. Loom stops were recorded by hand
+      in operator notes, so analysis was slow or did not happen at all.
+    </p>
+    <p>
+      The goal was a system that tracks each loom's downtime and output around the clock, without modifying
+      the machines, so the company can make data-driven decisions. The first milestone: a working proof of concept, fast.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Architecture</h2>
+    <div class="diagram">
+      <svg viewBox="0 0 960 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif" font-size="13">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#5b6676"/>
+          </marker>
+        </defs>
+        <style>
+          .grp { fill: #f5f7fa; stroke: #e2e7ee; }
+          .box { fill: #fff; stroke: #1f4e8c; stroke-width: 1.2; }
+          .hl  { fill: #e8eef7; stroke: #1f4e8c; stroke-width: 1.2; }
+          .ttl { font-weight: 700; fill: #1c2430; }
+          .lbl { fill: #1c2430; }
+          .sub { fill: #5b6676; font-size: 11px; }
+          .ln  { stroke: #5b6676; stroke-width: 1.4; fill: none; marker-end: url(#arr); }
+        </style>
+
+        <!-- Loom -->
+        <rect class="grp" x="10" y="20" width="200" height="260" rx="10"/>
+        <text class="ttl" x="26" y="44">On the loom</text>
+        <rect class="box" x="26" y="62" width="168" height="54" rx="6"/>
+        <text class="lbl" x="38" y="84">Motion sensor</text>
+        <text class="sub" x="38" y="102">running &amp; output</text>
+        <rect class="box" x="26" y="128" width="168" height="54" rx="6"/>
+        <text class="lbl" x="38" y="150">Machine status lamps</text>
+        <text class="sub" x="38" y="168">stop cause</text>
+        <rect class="box" x="26" y="194" width="168" height="54" rx="6"/>
+        <text class="lbl" x="38" y="216">Current sensor</text>
+        <text class="sub" x="38" y="234">machine on / off</text>
+
+        <!-- Node -->
+        <rect class="grp" x="260" y="20" width="230" height="260" rx="10"/>
+        <text class="ttl" x="276" y="44">Monitoring node</text>
+        <rect class="hl" x="276" y="62" width="198" height="120" rx="6"/>
+        <text class="lbl" x="290" y="86" font-weight="600">ESP32 (ESP-IDF)</text>
+                <text class="sub" x="290" y="112">stop detection logic</text>
+                <text class="sub" x="290" y="132">offline buffer + MQTT</text>
+        <rect class="box" x="276" y="194" width="198" height="54" rx="6"/>
+        <text class="lbl" x="290" y="216">LCD, status LEDs, buttons</text>
+        <text class="sub" x="290" y="234">setup from a phone</text>
+
+        <!-- Network -->
+        <rect class="box" x="530" y="112" width="120" height="54" rx="6"/>
+        <text class="lbl" x="546" y="135">Factory Wi-Fi</text>
+        <text class="sub" x="546" y="153">router / gateway</text>
+
+        <!-- Server -->
+        <rect class="grp" x="690" y="20" width="260" height="260" rx="10"/>
+        <text class="ttl" x="706" y="44">Server</text>
+        <rect class="box" x="706" y="62" width="228" height="44" rx="6"/>
+        <text class="lbl" x="720" y="89">MQTT broker</text>
+        <rect class="box" x="706" y="122" width="228" height="44" rx="6"/>
+        <text class="lbl" x="720" y="149">Backend + database</text>
+        <rect class="hl" x="706" y="182" width="228" height="44" rx="6"/>
+        <text class="lbl" x="720" y="209" font-weight="600">Production dashboard</text>
+        <text class="sub" x="706" y="252">downtime per loom, per shift</text>
+
+        <!-- Arrows -->
+        <path class="ln" d="M194 89 H240 V110 H274"/>
+        <path class="ln" d="M194 155 H274"/>
+        <path class="ln" d="M194 221 H240 V140 H274"/>
+        <path class="ln" d="M474 139 H528"/>
+        <text class="sub" x="486" y="128">MQTT</text>
+        <path class="ln" d="M650 139 H675 V84 H704"/>
+        <path class="ln" d="M820 106 V120"/>
+        <path class="ln" d="M820 166 V180"/>
+      </svg>
+    </div>
+    <p class="caption">Node and server overview. Each loom gets its own node; all nodes report to one broker over the factory Wi-Fi.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>What I built</h2>
+    <ul>
+      <li>
+        <strong>Automatic stop detection.</strong>
+        Each node tells when a loom stops and restarts, and why it stopped, by combining several signals from the machine.
+        Downtime is timestamped at the moment it happens, with no operator input.
+      </li>
+      <li>
+        <strong>Non-invasive sensing.</strong>
+        All sensors clip on or tap existing signals. Nothing on the loom's control circuit is modified.
+      </li>
+      <li>
+        <strong>No lost data when the network drops.</strong>
+        Events are sent in real time over MQTT and buffered on the node until the server confirms them,
+        so a power cut or network outage does not lose production data.
+      </li>
+      <li>
+        <strong>Built for the factory floor.</strong>
+        Nodes are set up from a phone, and a display and status lights show machine, network and sensor health at a glance.
+      </li>
+      <li>
+        <strong>Maintainable firmware.</strong>
+        Rebuilt the original Arduino prototype in ESP-IDF for finer control and more efficient code, with the core logic unit-tested.
+      </li>
+      <li>
+        <strong>Custom PCB.</strong>
+        Designed the node board in KiCad, now in final review before fabrication.
+      </li>
+      <li>
+        <strong>Dashboard design.</strong>
+        Designed the production dashboard and its data model with my teammate, aligned with the company's
+        manufacturing execution system.
+      </li>
+    </ul>
+
+    <div class="callout">
+      <strong>Hardest part:</strong> the client had no fixed requirements and the team came from different backgrounds.
+      I kept the project moving with frequent check-ins and by documenting every decision, test and open question,
+      so requirements could take shape as the prototype grew.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Result</h2>
+    <ul class="status-list">
+      <li class="done">Working prototype; downtime tracking functional end to end</li>
+      <li class="done">Bench-tested: no events or counts lost through a 10-minute broker outage</li>
+      <li class="done">Prototype tested on 1 of the factory's 18 looms</li>
+      <li class="wip">PCB fabrication and enclosure in progress</li>
+      <li class="wip">Dashboard: downtime view done; output view and factory deployment pending</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Tools</h2>
+    <div class="tags">
+      <span class="tag">ESP32</span><span class="tag">ESP-IDF</span><span class="tag">FreeRTOS</span><span class="tag">C</span>
+      <span class="tag">MQTT</span><span class="tag">KiCad</span><span class="tag">Git</span>
+      <span class="tag">DMM</span>
+    </div>
+    <p style="margin-top:24px"><a class="btn btn-outline" href="index.html#projects">← Back to projects</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">© 2026 Muhammad Jibril Kashani Zhillan</div>
+</footer>
+
+</body>
+</html>

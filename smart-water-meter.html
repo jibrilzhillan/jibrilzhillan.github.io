@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Water Meter | Jibril Zhillan</title>
+  <meta name="description" content="Case study: LoRaWAN communication and cloud web interface for an ultrasonic smart water meter (ITB final project).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="case">
+
+<nav class="nav">
+  <div class="container">
+    <a class="brand" href="index.html">Jibril Zhillan</a>
+    <ul>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="case-hero">
+  <div class="container">
+    <a class="back" href="index.html#projects">← All projects</a>
+    <div class="fact-kicker">Case study · Final project, BSc Electrical Engineering, ITB</div>
+    <h1>LoRaWAN Smart Water Meter</h1>
+    <p class="summary">
+      An ultrasonic household water meter that reports consumption automatically over LoRaWAN to a cloud
+      web dashboard, so the water utility no longer depends on manual meter readings.
+    </p>
+    <div class="facts">
+      <div class="fact"><div class="k">My role</div><div class="v">Communication &amp; cloud subsystem</div></div>
+      <div class="fact"><div class="k">Team</div><div class="v">3 people</div></div>
+      <div class="fact"><div class="k">Period</div><div class="v">2023 – 2024</div></div>
+      <div class="fact"><div class="k">Status</div><div class="v">Completed, paper written</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="container prose">
+    <h2>The problem</h2>
+    <p>
+      Indonesian water utilities lose about 35% of their water as non-revenue water, far above the 20% national target.
+      Part of it is non-physical: readings are taken by hand (one meter reader covers about 3,000 addresses a month),
+      re-typed by administrators, and sometimes estimated when a meter cannot be reached.
+    </p>
+    <p>
+      Our team built a smart water meter that sends accurate readings automatically, at low power and low cost.
+      I was responsible for getting the data from the meter to the utility: the wireless link, the cloud backend and the web interface.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Architecture</h2>
+    <div class="diagram">
+      <svg viewBox="0 0 960 230" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif" font-size="13">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#5b6676"/>
+          </marker>
+        </defs>
+        <style>
+          .grp { fill: #f5f7fa; stroke: #e2e7ee; }
+          .box { fill: #fff; stroke: #1f4e8c; stroke-width: 1.2; }
+          .hl  { fill: #e8eef7; stroke: #1f4e8c; stroke-width: 1.2; }
+          .ttl { font-weight: 700; fill: #1c2430; }
+          .lbl { fill: #1c2430; }
+          .sub { fill: #5b6676; font-size: 11px; }
+          .ln  { stroke: #5b6676; stroke-width: 1.4; fill: none; marker-end: url(#arr); }
+        </style>
+
+        <rect class="grp" x="10" y="20" width="250" height="190" rx="10"/>
+        <text class="ttl" x="26" y="44">Water meter</text>
+        <rect class="box" x="26" y="60" width="218" height="54" rx="6"/>
+        <text class="lbl" x="38" y="82">Ultrasonic sensing</text>
+        <text class="sub" x="38" y="100">by teammates</text>
+        <rect class="hl" x="26" y="128" width="218" height="66" rx="6"/>
+        <text class="lbl" x="38" y="150" font-weight="600">ESP32 + LoRa radio</text>
+        <text class="sub" x="38" y="168">scheduling, low-power sleep,</text>
+        <text class="sub" x="38" y="184">daily and on-demand reports</text>
+
+        <rect class="box" x="300" y="92" width="150" height="66" rx="6"/>
+        <text class="lbl" x="314" y="116">LoRaWAN network</text>
+        <text class="sub" x="314" y="134">public gateways</text>
+        <text class="sub" x="314" y="150">(Bandung)</text>
+
+        <rect class="grp" x="490" y="20" width="460" height="190" rx="10"/>
+        <text class="ttl" x="506" y="44">Cloud (Google Cloud Platform)</text>
+        <rect class="hl" x="506" y="60" width="200" height="54" rx="6"/>
+        <text class="lbl" x="518" y="82" font-weight="600">Serverless functions</text>
+        <text class="sub" x="518" y="100">ingest data, check device status</text>
+        <rect class="hl" x="506" y="128" width="200" height="54" rx="6"/>
+        <text class="lbl" x="518" y="150" font-weight="600">SQL database</text>
+        <text class="sub" x="518" y="168">customers, devices, consumption</text>
+        <rect class="hl" x="736" y="92" width="198" height="66" rx="6"/>
+        <text class="lbl" x="750" y="116" font-weight="600">Web dashboard</text>
+        <text class="sub" x="750" y="134">consumption, tamper</text>
+        <text class="sub" x="750" y="150">and connection status</text>
+
+        <path class="ln" d="M135 114 V126"/>
+        <path class="ln" d="M244 161 H272 V125 H298"/>
+        <path class="ln" d="M450 125 H475 V87 H504"/>
+        <path class="ln" d="M606 114 V126"/>
+        <path class="ln" d="M706 155 H720 V125 H734"/>
+      </svg>
+    </div>
+    <p class="caption">Highlighted blocks are my part of the system.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>What I built</h2>
+    <ul>
+      <li>
+        <strong>Long-range, low-power link.</strong>
+        Set up LoRaWAN on the ESP32 and LoRa radio: periodic daily reports plus on-demand readings, within
+        Indonesia's radio regulations for power and duty cycle, with the device sleeping between transmissions.
+      </li>
+      <li>
+        <strong>Compact data packets.</strong>
+        Designed the packet format carrying device identity, consumption and tamper status in a few bytes.
+      </li>
+      <li>
+        <strong>Serverless cloud backend.</strong>
+        Built the ingestion and device-monitoring functions, a scheduled daily check that flags meters that stop
+        reporting, and a relational database for customers, devices and consumption history.
+      </li>
+      <li>
+        <strong>Web interface.</strong>
+        Built a web app showing daily, monthly and cumulative consumption, on-demand readings, tamper alerts and
+        connection status per meter.
+      </li>
+      <li>
+        <strong>Field and compliance testing.</strong>
+        Planned and ran the verification: range tests across Bandung, transmit-power measurement, duty-cycle
+        calculation, multi-device collisions and end-to-end data checks.
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Result</h2>
+    <ul class="status-list">
+      <li class="done">End-to-end system working: meter → LoRaWAN → cloud → web dashboard</li>
+      <li class="done">Field range test up to 5 km, with 100% delivery at the 5 km test point</li>
+      <li class="done">Transmit power and duty cycle verified within Indonesian regulations</li>
+      <li class="done">Cloud correctly detects meters that fail to report</li>
+      <li class="done">Results published as a paper on the ITB website, alongside the final-project thesis</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Tools</h2>
+    <div class="tags">
+      <span class="tag">ESP32</span><span class="tag">LoRa / LoRaWAN</span><span class="tag">C/C++</span>
+      <span class="tag">Google Cloud</span><span class="tag">Python</span><span class="tag">JavaScript</span>
+      <span class="tag">MySQL</span><span class="tag">React</span>
+    </div>
+    <p style="margin-top:24px"><a class="btn btn-outline" href="index.html#projects">← Back to projects</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">© 2026 Muhammad Jibril Kashani Zhillan</div>
+</footer>
+
+</body>
+</html>

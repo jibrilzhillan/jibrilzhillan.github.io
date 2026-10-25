@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audio-Reactive Lighting Controller | Jibril Zhillan</title>
+  <meta name="description" content="Case study: a .NET CLI that turns a song and a JSON cue timeline into a synchronized light show for a commercial photo box.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="case">
+
+<nav class="nav">
+  <div class="container">
+    <a class="brand" href="index.html">Jibril Zhillan</a>
+    <ul>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="case-hero">
+  <div class="container">
+    <a class="back" href="index.html#projects">← All projects</a>
+    <div class="fact-kicker">Case study · Client project for a commercial photo box</div>
+    <h1>Audio-Reactive Lighting Controller</h1>
+    <p class="summary">
+      A .NET command-line app that turns a song and a simple cue file into a synchronized light show,
+      driving LED strips and a lamp through an ESP32 lighting controller over Wi-Fi.
+    </p>
+    <div class="facts">
+      <div class="fact"><div class="k">My role</div><div class="v">Research, software design &amp; implementation</div></div>
+      <div class="fact"><div class="k">Team</div><div class="v">2 people (teammate built the hardware)</div></div>
+      <div class="fact"><div class="k">Period</div><div class="v">Jan–Feb 2026</div></div>
+      <div class="fact"><div class="k">Stack</div><div class="v">C# / .NET 8, NAudio, REST</div></div>
+      <div class="fact"><div class="k">Status</div><div class="v">Completed</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="container prose">
+    <h2>The problem</h2>
+    <p>
+      A commercial photo box needed lighting that moves with the music: calm ambient effects between sessions,
+      and a choreographed, beat-reactive show while a song plays. The show had to be easy to change per song
+      and run reliably on a Windows PC operated by non-engineers.
+    </p>
+    <p>
+      I researched how lighting can be synchronized to audio and which hardware it needs, then turned the client's
+      needs into a technical specification. My teammate built the ESP32 lighting controller; I designed and built
+      the software that runs the show.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Architecture</h2>
+    <div class="diagram">
+      <svg viewBox="0 0 960 280" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif" font-size="13">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#5b6676"/>
+          </marker>
+        </defs>
+        <style>
+          .grp { fill: #f5f7fa; stroke: #e2e7ee; }
+          .box { fill: #fff; stroke: #1f4e8c; stroke-width: 1.2; }
+          .hl  { fill: #e8eef7; stroke: #1f4e8c; stroke-width: 1.2; }
+          .ttl { font-weight: 700; fill: #1c2430; }
+          .lbl { fill: #1c2430; }
+          .sub { fill: #5b6676; font-size: 11px; }
+          .ln  { stroke: #5b6676; stroke-width: 1.4; fill: none; marker-end: url(#arr); }
+        </style>
+
+        <!-- Inputs -->
+        <rect class="grp" x="10" y="20" width="170" height="240" rx="10"/>
+        <text class="ttl" x="26" y="44">Show files</text>
+        <rect class="box" x="26" y="62" width="138" height="50" rx="6"/>
+        <text class="lbl" x="38" y="84">Song (MP3)</text>
+        <rect class="box" x="26" y="124" width="138" height="54" rx="6"/>
+        <text class="lbl" x="38" y="146">Cue timeline</text>
+        <text class="sub" x="38" y="164">JSON: time → effects</text>
+        <rect class="box" x="26" y="190" width="138" height="54" rx="6"/>
+        <text class="lbl" x="38" y="212">App config</text>
+        <text class="sub" x="38" y="230">device IP, audio out</text>
+
+        <!-- PC -->
+        <rect class="grp" x="220" y="20" width="440" height="240" rx="10"/>
+        <text class="ttl" x="236" y="44">Windows PC</text>
+        <rect class="hl" x="236" y="62" width="200" height="182" rx="6"/>
+        <text class="lbl" x="250" y="86" font-weight="600">LedCLI (my software)</text>
+        <text class="sub" x="250" y="108">init · ambience · start · stop</text>
+        <text class="sub" x="250" y="132">audio player, 200 ms timestamps</text>
+        <text class="sub" x="250" y="152">cue scheduler + transitions</text>
+        <text class="sub" x="250" y="172">health checks, error codes</text>
+        <text class="sub" x="250" y="192">file logging</text>
+        <rect class="box" x="472" y="62" width="172" height="80" rx="6"/>
+        <text class="lbl" x="486" y="86">Effects engine</text>
+        <text class="sub" x="486" y="106">audio analysis + effects</text>
+        <text class="sub" x="486" y="124">(REST API)</text>
+        <rect class="box" x="472" y="164" width="172" height="80" rx="6"/>
+        <text class="lbl" x="486" y="188">Speakers</text>
+        <text class="sub" x="486" y="208">song playback,</text>
+        <text class="sub" x="486" y="226">audio fed to the engine</text>
+
+        <!-- Hardware -->
+        <rect class="grp" x="700" y="20" width="250" height="240" rx="10"/>
+        <text class="ttl" x="716" y="44">Lighting hardware</text>
+        <text class="sub" x="716" y="60">built by my teammate</text>
+        <rect class="box" x="716" y="72" width="218" height="54" rx="6"/>
+        <text class="lbl" x="730" y="94">ESP32 lighting controller</text>
+        <text class="sub" x="730" y="112">Wi-Fi</text>
+        <rect class="box" x="716" y="146" width="218" height="40" rx="6"/>
+        <text class="lbl" x="730" y="171">Addressable LED strips</text>
+        <rect class="box" x="716" y="200" width="218" height="40" rx="6"/>
+        <text class="lbl" x="730" y="225">DMX lamp</text>
+
+        <!-- Arrows -->
+        <path class="ln" d="M164 87 H234"/>
+        <path class="ln" d="M164 151 H234"/>
+        <path class="ln" d="M164 217 H234"/>
+        <path class="ln" d="M436 100 H470"/>
+        <text class="sub" x="438" y="94">REST</text>
+        <path class="ln" d="M436 204 H470"/>
+        <path class="ln" d="M558 164 V144"/>
+        <path class="ln" d="M644 100 H714"/>
+        <text class="sub" x="652" y="94">Wi-Fi</text>
+        <path class="ln" d="M825 126 V144"/>
+        <path class="ln" d="M934 99 H944 V220 H936"/>
+      </svg>
+    </div>
+    <p class="caption">LedCLI plays the song and switches scenes on cue; the effects engine reacts to the audio and streams frames to the controller.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>What I built</h2>
+    <ul>
+      <li>
+        <strong>Shows defined as data, not code.</strong>
+        Each song has a JSON cue timeline: at each timestamp, which effect runs on which light segment
+        (LED perimeter, lamp) and whether to fade or cut. New shows can be written without touching the program.
+      </li>
+      <li>
+        <strong>Music-synchronized cue scheduling.</strong>
+        The app plays the song with NAudio and publishes the playback position every 200 ms as a reactive stream.
+        A scheduler fires each scene change when its cue time is reached, and handles pause, resume and stop from the keyboard.
+      </li>
+      <li>
+        <strong>Audio-reactive effects engine integration.</strong>
+        The app runs a real-time audio analysis and effects engine in the background and controls it through a REST API:
+        it starts the engine, loads the configuration, prepares the scenes and switches between them during the show.
+      </li>
+      <li>
+        <strong>Self-checking startup.</strong>
+        One <code>init</code> command checks that the lighting controller answers on the network, that the configured
+        audio device exists, and that the effects engine starts and accepts its config. Each failure returns its own error code
+        and is written to a log file.
+      </li>
+      <li>
+        <strong>Ambient mode and smooth transitions.</strong>
+        An <code>ambience</code> command runs idle effects between sessions, with fading transitions so lights never jump.
+      </li>
+      <li>
+        <strong>Documentation for operators.</strong>
+        Wrote tutorials and troubleshooting guides so the client's staff can run the system and recover from faults on their own.
+      </li>
+    </ul>
+
+    <div class="callout">
+      <strong>Key decision:</strong> focus the effort on what the client actually needed:
+      reliable startup, per-song choreography and easy operation.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Result</h2>
+    <ul class="status-list">
+      <li class="done">Project completed: software and hardware working together end to end</li>
+      <li class="done">One command initializes the system, one plays a fully choreographed song</li>
+      <li class="done">Song shows authored as JSON cue files, separate from the code</li>
+      <li class="done">User tutorials and troubleshooting guide delivered</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Tools</h2>
+    <div class="tags">
+      <span class="tag">C#</span><span class="tag">.NET 8</span><span class="tag">System.CommandLine</span>
+      <span class="tag">NAudio</span><span class="tag">Rx (System.Reactive)</span><span class="tag">REST API</span>
+      <span class="tag">Wi-Fi</span><span class="tag">Git</span>
+    </div>
+    <p style="margin-top:24px"><a class="btn btn-outline" href="index.html#projects">← Back to projects</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">© 2026 Muhammad Jibril Kashani Zhillan</div>
+</footer>
+
+</body>
+</html>

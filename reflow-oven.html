@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reflow Line Model | Jibril Zhillan</title>
+  <meta name="description" content="Case study: a small-scale reflow line that heats, inspects and sorts PCBs, built on STM32 and FreeRTOS.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="case">
+
+<nav class="nav">
+  <div class="container">
+    <a class="brand" href="index.html">Jibril Zhillan</a>
+    <ul>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="case-hero">
+  <div class="container">
+    <a class="back" href="index.html#projects">← All projects</a>
+    <div class="fact-kicker">Case study · KCCI Firmware Training, final project</div>
+    <h1>Reflow Line Model with Vision Inspection</h1>
+    <p class="summary">
+      A small-scale model of a PCB reflow line: a conveyor carries each board through a heating profile,
+      a camera inspects it, and a servo sorts it into pass or reject, all coordinated by real-time firmware.
+    </p>
+    <div class="facts">
+      <div class="fact"><div class="k">My role</div><div class="v">Conveyor system &amp; conveyor–sorting integration</div></div>
+      <div class="fact"><div class="k">Team</div><div class="v">5 people</div></div>
+      <div class="fact"><div class="k">Period</div><div class="v">2026</div></div>
+      <div class="fact"><div class="k">Status</div><div class="v">Proof of concept, each stage demonstrated</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="container prose">
+    <h2>The project</h2>
+    <p>
+      The final project of the firmware training: design a multi-tasking embedded system that mirrors a real
+      production line. Our team built a reflow line model where an STM32 microcontroller running FreeRTOS
+      controls the heater, conveyor, sorter and operator panel, and a Raspberry Pi runs camera inspection and a dashboard.
+    </p>
+    <p>
+      I designed and implemented the conveyor system, and integrated it with the sorting system so each board
+      ends up in the right lane.
+    </p>
+    <div class="callout">
+      <strong>A model, not a production oven.</strong> The heating profile runs in stages up to 120 °C
+      (60, 90, then 120 °C), well below real solder reflow temperatures, so no components are actually soldered.
+      The Sn63/Pb37 solder profile is in the firmware but intentionally locked until the heater and safety features are proven.
+      The boards on the line are stand-ins: a printed image of the test PCB mounted on a 3D-printed square block.
+    </div>
+    <figure class="photo">
+      <img src="assets/reflow-prototype.jpg" alt="Reflow line prototype on the bench: conveyor belt, heater with fan, camera stand, motor driver and OLED panel" loading="lazy">
+      <figcaption>The prototype on the bench: conveyor with encoder, heater station, camera stand and operator panel.</figcaption>
+    </figure>
+    <div class="gallery">
+      <figure>
+        <img src="assets/reflow-conveyor.jpg" alt="Conveyor belt with DC motor, encoder and camera stand on the test bench" loading="lazy">
+        <figcaption>Conveyor bench: motor, encoder and camera stand</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/reflow-heater.jpg" alt="Hot plate with cooling fan mounted over the conveyor" loading="lazy">
+        <figcaption>Heater station with cooling fan</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/reflow-inspection.jpg" alt="Camera view of a test board with inspected component regions outlined" loading="lazy">
+        <figcaption>Camera inspection of a test board</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/reflow-monitor.jpg" alt="Station monitor showing a board at the preheat stage of the line" loading="lazy">
+        <figcaption>Station monitor: live position of the board on the line</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>What I built</h2>
+    <ul>
+      <li>
+        <strong>Conveyor control.</strong>
+        Motor and encoder control that moves each board to the heater, holds it there until the heating profile
+        finishes, then carries it to the inspection point.
+      </li>
+      <li>
+        <strong>Conveyor–sorting integration.</strong>
+        Connected the conveyor to the sorting system so that each board arrives at the sorter and is routed
+        according to its inspection verdict.
+      </li>
+      <li>
+        <strong>Working within shared firmware.</strong>
+        The conveyor runs as one task in the team's real-time firmware, cooperating safely with the heater and inspection tasks.
+      </li>
+      <li>
+        <strong>Bench debugging.</strong>
+        Debugged the conveyor drive and encoder, and the conveyor–sorting handover, through the diagnostic menu.
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Result</h2>
+    <ul class="status-list">
+      <li class="done">Every stage demonstrated on the prototype: transport, heating profile, inspection, sorting</li>
+      <li class="done">Conveyor stops the board at the heater, waits, and delivers it to inspection</li>
+      <li class="done">Sorter follows the pass/fail verdict</li>    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Tools</h2>
+    <div class="tags">
+      <span class="tag">STM32</span><span class="tag">FreeRTOS</span><span class="tag">C</span>
+      <span class="tag">DC motor + encoder</span><span class="tag">Servo</span><span class="tag">Raspberry Pi</span>
+    </div>
+    <p style="margin-top:24px"><a class="btn btn-outline" href="index.html#projects">← Back to projects</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">© 2026 Muhammad Jibril Kashani Zhillan</div>
+</footer>
+
+</body>
+</html>

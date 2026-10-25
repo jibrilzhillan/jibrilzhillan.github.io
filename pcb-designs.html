@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PCB Designs | Jibril Zhillan</title>
+  <meta name="description" content="Training case study: a microcontroller board and a high-speed ESP32-P4 display bridge, designed in KiCad.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="case">
+
+<nav class="nav">
+  <div class="container">
+    <a class="brand" href="index.html">Jibril Zhillan</a>
+    <ul>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="case-hero">
+  <div class="container">
+    <a class="back" href="index.html#projects">← All projects</a>
+    <div class="fact-kicker">Case study · KCCI Hardware Training, PCB design module</div>
+    <h1>High-Speed PCB Design</h1>
+    <p class="summary">
+      Two training boards designed in KiCad: a microcontroller board, and a 4-layer ESP32-P4 display bridge
+      used to practise high-speed layout, impedance control and differential-pair routing.
+    </p>
+    <div class="facts">
+      <div class="fact"><div class="k">My role</div><div class="v">PCB layout &amp; routing (own designs)</div></div>
+      <div class="fact"><div class="k">Context</div><div class="v">Hardware design training</div></div>
+      <div class="fact"><div class="k">Period</div><div class="v">2026</div></div>
+      <div class="fact"><div class="k">Status</div><div class="v">Design complete, DRC clean</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="container prose">
+    <h2>The boards</h2>
+    <ul>
+      <li>
+        <strong>ESP32-P4 MIPI-DSI to HDMI / LVDS bridge.</strong>
+        The main exercise: a compact 4-layer board (60 × 50 mm) that converts the ESP32-P4's display output
+        for HDMI and LVDS panels. The goal was to learn and apply best practice for high-frequency signals.
+      </li>
+      <li>
+        <strong>ATmega128 development board.</strong>
+        A minimum-system board with power input, USB-to-serial, crystal and broken-out I/O, focused on clean
+        decoupling and placement.
+      </li>
+    </ul>
+    <div class="gallery">
+      <figure>
+        <img src="assets/pcb-bridge-3d.jpg" alt="3D render of the ESP32-P4 display bridge board" loading="lazy">
+        <figcaption>ESP32-P4 bridge, 3D render</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/pcb-bridge-routing.jpg" alt="Routed layout of the ESP32-P4 display bridge with differential pairs" loading="lazy">
+        <figcaption>ESP32-P4 bridge, routed layout</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/pcb-atmega128-layout.jpg" alt="Routed layout of the ATmega128 development board" loading="lazy">
+        <figcaption>ATmega128 board, routed layout</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>What I practised</h2>
+    <ul>
+      <li>
+        <strong>A step-by-step high-speed workflow.</strong>
+        Stackup first, then impedance, design rules, placement and routing, so every later step builds on a fixed foundation.
+      </li>
+      <li>
+        <strong>Stackup and impedance.</strong>
+        Chose a standard 4-layer manufacturer stackup and calculated the trace geometry for 100 Ω differential pairs.
+      </li>
+      <li>
+        <strong>Design rules before placement.</strong>
+        Set up net classes and constraints for power, fine-pitch and differential-pair nets to match the manufacturer's capabilities.
+      </li>
+      <li>
+        <strong>Differential-pair routing.</strong>
+        Routed and length-tuned all 12 MIPI, LVDS and HDMI pairs, keeping skew within each pair close to zero.
+      </li>
+      <li>
+        <strong>Clean sign-off.</strong>
+        Both boards pass design-rule and schematic-parity checks with zero errors and zero warnings.
+      </li>
+    </ul>
+    <div class="callout">
+      <strong>Background:</strong> the same training covered signal integrity in LTspice and MATLAB: transmission-line
+      reflections, crosstalk between traces, and equalization on multi-gigabit serial links.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Tools</h2>
+    <div class="tags">
+      <span class="tag">KiCad</span><span class="tag">4-layer stackup</span><span class="tag">Impedance control</span>
+      <span class="tag">Differential pairs</span><span class="tag">LTspice</span><span class="tag">MATLAB</span>
+    </div>
+    <p style="margin-top:24px"><a class="btn btn-outline" href="index.html#projects">← Back to projects</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">© 2026 Muhammad Jibril Kashani Zhillan</div>
+</footer>
+
+</body>
+</html>
