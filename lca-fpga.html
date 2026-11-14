@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tiny CNN on FPGA | Jibril Zhillan</title>
+  <meta name="description" content="Case study: a tiny CNN accelerator in Verilog on an Artix-7 FPGA that classifies a car's position in its lane, built as the KCCI FPGA training final project.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="case">
+
+<nav class="nav">
+  <div class="container">
+    <a class="brand" href="index.html">Jibril Zhillan</a>
+    <ul>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="case-hero">
+  <div class="container">
+    <a class="back" href="index.html#projects">← All projects</a>
+    <div class="fact-kicker">Case study · KCCI FPGA / IC Design Training, final project</div>
+    <h1>Lane Centering Assist: Tiny CNN on FPGA</h1>
+    <p class="summary">
+      A small neural network built in hardware on an FPGA. It looks at an image of the road ahead
+      and decides whether the car is left of the lane centre, centred, or right of it: the perception
+      step of a lane centering assist system.
+    </p>
+    <div class="facts">
+      <div class="fact"><div class="k">My role</div><div class="v">Team lead · board integration</div></div>
+      <div class="fact"><div class="k">Team</div><div class="v">5 people</div></div>
+      <div class="fact"><div class="k">Period</div><div class="v">Nov 2026 (7 days)</div></div>
+      <div class="fact"><div class="k">Status</div><div class="v">Completed, demonstrated on the board</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="container prose">
+    <h2>The project</h2>
+    <p>
+      The final project of the FPGA and semiconductor IC design training: design a hardware accelerator
+      in Verilog and run it on a real board. Our team built a compact CNN on a Digilent Basys3
+      (AMD Artix-7). The network is trained offline in Python on the public TuSimple highway dataset;
+      the FPGA runs inference only, with integer arithmetic and no processor.
+    </p>
+    <p>
+      I led the team and owned board integration: the scripted Vivado build flow, the constraints,
+      the top-level design with the board's switches, LEDs and display, synthesis and timing runs,
+      and bringing the design up on the board.
+    </p>
+    <div class="callout">
+      <strong>A proof of concept, not a production driver-assistance system.</strong>
+      The board classifies 16 stored test images selected with its switches; there is no live camera.
+    </div>
+    <figure class="photo">
+      <img src="assets/lca-cnn.jpg" alt="Diagram of the network: a 64 by 32 road image goes through a convolution layer, pooling and a fully connected layer to a LEFT, STRAIGHT or RIGHT decision" loading="lazy">
+      <figcaption>The network: a small grayscale road image in, a LEFT / STRAIGHT / RIGHT decision out.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>What I did</h2>
+    <ul>
+      <li>
+        <strong>Team lead.</strong>
+        Split the work into five roles, ran a day-by-day plan against the course milestones,
+        and kept a decision log, bug log and build log so the team shipped in 7 days.
+      </li>
+      <li>
+        <strong>Build flow.</strong>
+        Scripted the whole Vivado flow, from project creation to bitstream and board programming,
+        so every build is reproducible and its timing and resource reports are archived.
+      </li>
+      <li>
+        <strong>Board integration.</strong>
+        Wrote the top-level design that connects the accelerator to the board: image selection with the
+        switches, the result on the seven-segment display and LEDs, and an on-board latency readout.
+      </li>
+      <li>
+        <strong>Bring-up and debugging.</strong>
+        Brought each build up on the board and tracked down a build-configuration fault that made the
+        board give the wrong answer on almost every image; the build script now checks for it.
+      </li>
+      <li>
+        <strong>Version control and documentation.</strong>
+        Ran the team's git workflow (one branch per task, merged by pull request) and wrote the
+        build-and-run tutorial.
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Result</h2>
+    <ul class="status-list">
+      <li class="done">83% accuracy on 2,216 test images the model never saw (target: 80%)</li>
+      <li class="done">Hardware output identical to the Python reference model: 128/128 images in simulation, 16/16 on the board</li>
+      <li class="done">1.17 ms per image at 100 MHz, about 28× faster than a 30 fps camera needs</li>
+      <li class="done">Small footprint: 2.1% of the FPGA's logic and 25% of its block RAM</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <h2>Tools</h2>
+    <div class="tags">
+      <span class="tag">Verilog</span><span class="tag">Vivado</span><span class="tag">Tcl</span>
+      <span class="tag">AMD Artix-7 (Basys3)</span><span class="tag">Python</span><span class="tag">Git</span>
+    </div>
+    <p class="btn-row" style="margin-top:24px">
+      <a class="btn btn-primary" href="https://github.com/jibrilzhillan/lca-tiny-cnn-basys3" target="_blank" rel="noopener">View source on GitHub</a>
+      <a class="btn btn-outline" href="index.html#projects">← Back to projects</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">© 2026 Muhammad Jibril Kashani Zhillan</div>
+</footer>
+
+</body>
+</html>
