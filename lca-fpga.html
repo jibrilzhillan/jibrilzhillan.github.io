@@ -105,6 +105,10 @@
 <section>
   <div class="container prose">
     <h2>Result</h2>
+    <figure class="photo video">
+      <iframe src="https://www.youtube-nocookie.com/embed/hvUAcI4PJ1E" title="Tiny CNN for lane position on a Basys3 FPGA: live demo" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <figcaption>Demo on the Basys3: switches pick a stored road image, the button runs inference, and the display shows LF / St / rt and the latency.</figcaption>
+    </figure>
     <ul class="status-list">
       <li class="done">83% accuracy on 2,216 test images the model never saw (target: 80%)</li>
       <li class="done">Hardware output identical to the Python reference model: 128/128 images in simulation, 16/16 on the board</li>
