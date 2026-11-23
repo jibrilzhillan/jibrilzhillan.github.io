@@ -51,7 +51,7 @@
       in operator notes, so analysis was slow or did not happen at all.
     </p>
     <p>
-      The goal was a system that tracks each loom's downtime and output around the clock, without modifying
+      The goal was a system that tracks each loom's downtime and output around the clock, with minimal changes to
       the machines, so the company can make data-driven decisions. The first milestone: a working proof of concept, fast.
     </p>
   </div>
@@ -142,8 +142,8 @@
         Downtime is timestamped at the moment it happens, with no operator input.
       </li>
       <li>
-        <strong>Non-invasive sensing.</strong>
-        All sensors clip on or tap existing signals. Nothing on the loom's control circuit is modified.
+        <strong>Minimal changes to the machine.</strong>
+        Most sensors clip on; the stop signal comes from the loom's existing indicator-lamp wiring, without changing how the machine runs.
       </li>
       <li>
         <strong>No lost data when the network drops.</strong>
